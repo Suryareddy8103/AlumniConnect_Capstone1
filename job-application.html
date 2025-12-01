@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Apply for Job - AlumniConnect</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+		<div class="container">
+			<a class="navbar-brand" href="index.html">
+				<i class="fas fa-graduation-cap me-2"></i>AlumniConnect
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="directory.html">Directory</a></li>
+					<li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+					<li class="nav-item"><a class="nav-link active" href="jobs.html">Jobs</a></li>
+				</ul>
+				<div class="d-flex nav-buttons">
+					<a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+					<a href="register.html" class="btn btn-primary">Register</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<!-- Job Summary Card -->
+				<div class="card p-4 mb-4" id="jobSummaryCard" style="display: none;">
+					<h4 class="mb-3" id="jobTitle">Job Title</h4>
+					<div class="text-muted mb-2">
+						<span id="jobCompany"></span>
+						<span id="jobLocation" class="ms-2"></span>
+					</div>
+					<p class="text-muted small mb-0" id="jobDescription"></p>
+				</div>
+
+				<!-- Application Form Card -->
+				<div class="card p-4">
+					<h4 class="mb-4">Job Application</h4>
+					
+					<div id="alertContainer"></div>
+
+					<form id="applicationForm">
+						<div class="mb-3">
+							<label for="coverLetter" class="form-label">Cover Letter <span class="text-muted">(Optional)</span></label>
+							<textarea 
+								class="form-control" 
+								id="coverLetter" 
+								rows="8" 
+								placeholder="Tell us why you're interested in this position and what makes you a great fit..."
+							></textarea>
+							<small class="form-text text-muted">Share your motivation, relevant experience, and what you can bring to this role.</small>
+						</div>
+
+						<div class="mb-3">
+							<label for="resumeUrl" class="form-label">Resume URL <span class="text-muted">(Optional)</span></label>
+							<input 
+								type="url" 
+								class="form-control" 
+								id="resumeUrl" 
+								placeholder="https://example.com/resume.pdf or link to your LinkedIn profile"
+							/>
+							<small class="form-text text-muted">Provide a link to your resume or professional profile (LinkedIn, portfolio, etc.)</small>
+						</div>
+
+						<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+							<a href="jobs.html" class="btn btn-outline-secondary me-md-2">Cancel</a>
+							<button type="submit" class="btn btn-primary" id="submitBtn">
+								<i class="fas fa-paper-plane me-2"></i>Submit Application
+							</button>
+						</div>
+					</form>
+				</div>
+
+				<!-- Success Message (hidden by default) -->
+				<div class="card p-4 mt-4 bg-success text-white" id="successCard" style="display: none;">
+					<div class="d-flex align-items-center">
+						<i class="fas fa-check-circle fa-2x me-3"></i>
+						<div>
+							<h5 class="mb-1">Application Submitted Successfully!</h5>
+							<p class="mb-0">Your application has been received. The employer will review it and get back to you.</p>
+						</div>
+					</div>
+					<div class="mt-3">
+						<a href="jobs.html" class="btn btn-light me-2">Browse More Jobs</a>
+						<a href="dashboard.html" class="btn btn-outline-light">View My Applications</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="container">
+			<hr class="my-4 bg-light">
+			<div class="text-center">
+				<p class="mb-0">&copy; 2023 AlumniConnect. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="app.js"></script>
+	<script>
+		let jobId = null;
+		let jobData = null;
+
+		async function loadJobDetails() {
+			const params = new URLSearchParams(window.location.search);
+			jobId = params.get('jobId');
+			
+			if (!jobId) {
+				showAlert('Missing job ID', 'danger');
+				setTimeout(() => window.location.href = 'jobs.html', 2000);
+				return;
+			}
+
+			// Check authentication
+			if (!AlumniApp.requireAuth()) {
+				return;
+			}
+
+			try {
+				const res = await AlumniApp.apiFetch('/jobs/' + jobId);
+				jobData = res.job;
+				
+				// Display job summary
+				document.getElementById('jobTitle').textContent = jobData.title;
+				document.getElementById('jobCompany').textContent = jobData.company || '';
+				document.getElementById('jobLocation').textContent = jobData.location ? '• ' + jobData.location : '';
+				document.getElementById('jobDescription').textContent = jobData.description 
+					? (jobData.description.length > 200 ? jobData.description.substring(0, 200) + '...' : jobData.description)
+					: 'No description provided.';
+				document.getElementById('jobSummaryCard').style.display = 'block';
+
+				// Check if user already applied
+				try {
+					const applicationsRes = await AlumniApp.apiFetch('/applications/me');
+					const existingApp = applicationsRes.applications.find(app => app.job._id === jobId);
+					if (existingApp) {
+						showAlert('You have already applied for this job. You can view your application in your dashboard.', 'info');
+						document.getElementById('applicationForm').style.display = 'none';
+					}
+				} catch (err) {
+					// User hasn't applied yet, continue
+				}
+			} catch (e) {
+				showAlert(e.message || 'Failed to load job details', 'danger');
+				setTimeout(() => window.location.href = 'jobs.html', 2000);
+			}
+		}
+
+		function showAlert(message, type = 'info') {
+			const alertContainer = document.getElementById('alertContainer');
+			alertContainer.innerHTML = `
+				<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+					${message}
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				</div>
+			`;
+		}
+
+		document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+			e.preventDefault();
+			
+			if (!AlumniApp.requireAuth()) {
+				return;
+			}
+
+			const submitBtn = document.getElementById('submitBtn');
+			const originalText = submitBtn.innerHTML;
+			submitBtn.disabled = true;
+			submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+
+			try {
+				const coverLetter = document.getElementById('coverLetter').value.trim();
+				const resumeUrl = document.getElementById('resumeUrl').value.trim();
+
+				await AlumniApp.apiFetch(`/applications/jobs/${jobId}`, {
+					method: 'POST',
+					body: JSON.stringify({
+						coverLetter: coverLetter || undefined,
+						resumeUrl: resumeUrl || undefined,
+					}),
+				});
+
+				// Hide form and show success message
+				document.getElementById('applicationForm').style.display = 'none';
+				document.getElementById('jobSummaryCard').style.display = 'none';
+				document.getElementById('successCard').style.display = 'block';
+					// Optimistic update: mark this job as applied in localStorage so listings update without reload
+					try {
+						localStorage.setItem('applied_job_' + jobId, Date.now().toString());
+						// Also dispatch a custom event for same-window listeners
+						try { window.dispatchEvent(new CustomEvent('applied', { detail: jobId })); } catch (e) {}
+					} catch (e) { console.warn('Failed to write applied flag to localStorage', e); }
+			} catch (error) {
+				showAlert(error.message || 'Failed to submit application. Please try again.', 'danger');
+				submitBtn.disabled = false;
+				submitBtn.innerHTML = originalText;
+			}
+		});
+
+		document.addEventListener('DOMContentLoaded', loadJobDetails);
+	</script>
+</body>
+</html>
+

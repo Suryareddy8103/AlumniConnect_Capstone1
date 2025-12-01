@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Job Details - AlumniConnect</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+		<div class="container">
+			<a class="navbar-brand" href="index.html">
+				<i class="fas fa-graduation-cap me-2"></i>AlumniConnect
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="directory.html">Directory</a></li>
+					<li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+					<li class="nav-item"><a class="nav-link active" href="jobs.html">Jobs</a></li>
+					<li class="nav-item"><a class="nav-link" href="success-stories.html">Success Stories</a></li>
+				</ul>
+				<div class="d-flex nav-buttons">
+					<a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+					<a href="register.html" class="btn btn-primary">Register</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container py-5">
+		<div id="headerSection" class="mb-4">
+			<p class="text-muted mb-1" id="postedMeta"></p>
+			<h2 id="jobTitle" class="mb-2">Job Title</h2>
+			<div class="text-muted">
+				<span id="jobCompany"></span>
+				<span id="jobLocation" class="ms-2"></span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="card p-4 mb-4">
+					<h4 class="mb-3">Job Description</h4>
+					<p id="jobDescription" class="mb-0 text-wrap"></p>
+				</div>
+				<div class="card p-4 mb-4">
+					<h4 class="mb-3">Qualifications</h4>
+					<p id="jobQualifications" class="mb-0 text-wrap"></p>
+				</div>
+				<div class="card p-4">
+					<h4 class="mb-3">Hiring Workflow</h4>
+					<ol id="hiringWorkflow" class="mb-0">
+						<li>Application review</li>
+						<li>Initial screening</li>
+						<li>Technical/behavioral interviews</li>
+						<li>Final interview and offer</li>
+					</ol>
+					<small class="text-muted d-block mt-2">If the employer provided a different workflow, follow the external application link.</small>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="card p-4">
+					<h5 class="mb-3">Apply</h5>
+					<p class="text-muted small" id="applyDescription">Apply for this position through our platform.</p>
+					<div class="d-grid gap-2">
+						<a id="applyBtn" href="#" class="btn btn-primary">Go to Application</a>
+						<a id="applyExternal" href="#" target="_blank" class="btn btn-outline-primary" style="display: none;">External Application Link</a>
+						<a href="jobs.html" class="btn btn-outline-secondary">Back to Jobs</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="container">
+			<hr class="my-4 bg-light">
+			<div class="text-center">
+				<p class="mb-0">&copy; 2023 AlumniConnect. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="app.js"></script>
+	<script>
+		async function loadJob() {
+			const params = new URLSearchParams(window.location.search);
+			const id = params.get('id');
+			if (!id) { alert('Missing job id'); window.location.href = 'jobs.html'; return; }
+			try {
+				const res = await AlumniApp.apiFetch('/jobs/' + id);
+				const j = res.job;
+				document.getElementById('jobTitle').textContent = j.title;
+				document.getElementById('jobCompany').textContent = j.company ? j.company : '';
+				document.getElementById('jobLocation').textContent = j.location ? '• ' + j.location : '';
+				document.getElementById('postedMeta').textContent = 'Posted on ' + new Date(j.postedAt || j.createdAt || Date.now()).toLocaleDateString();
+				document.getElementById('jobDescription').textContent = j.description || 'No description provided.';
+				document.getElementById('jobQualifications').textContent = j.qualifications || 'No specific qualifications provided.';
+
+				const applyBtn = document.getElementById('applyBtn');
+				const applyExternal = document.getElementById('applyExternal');
+				const applyDescription = document.getElementById('applyDescription');
+				
+				// Set up internal application button
+				applyBtn.href = `job-application.html?jobId=${j._id}`;
+				
+				// If external URL exists, show it as an additional option
+				if (j.applicationUrl) {
+					applyExternal.href = j.applicationUrl;
+					applyExternal.style.display = 'block';
+					applyDescription.textContent = 'Apply through our platform or use the external application link below.';
+				} else {
+					applyExternal.style.display = 'none';
+					applyDescription.textContent = 'Apply for this position through our platform.';
+				}
+			} catch (e) {
+				alert(e.message || 'Failed to load job');
+				window.location.href = 'jobs.html';
+			}
+		}
+		document.addEventListener('DOMContentLoaded', loadJob);
+	</script>
+</body>
+</html>
+
+

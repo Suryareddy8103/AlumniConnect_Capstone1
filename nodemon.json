@@ -1,0 +1,11 @@
+{
+  "watch": ["src/**/*.js"],
+  "ignore": ["uploads/**", "node_modules/**", "*.log"],
+  "ext": "js,json",
+  "delay": 1000,
+  "env": {
+    "NODE_ENV": "development",
+    "MONGODB_URI": "mongodb://localhost:27017/alumni_network",
+    "JWT_SECRET": "devsecret"
+  }
+}

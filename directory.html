@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Directory - AlumniConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>AlumniConnect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs.html">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="success-stories.html">Success Stories</a>
+                    </li>
+                </ul>
+                <div class="d-flex nav-buttons">
+                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alumni Directory Page -->
+    <div class="container py-5">
+        <div class="position-relative mb-2" style="min-height:48px;">
+            <h2 class="section-title mb-0" id="alumniTitle" style="position:absolute; left:50%; transform:translateX(-50%); top:0;">Alumni Directory</h2>
+            <a href="alumni-search-system/ai%20filter.html" class="btn btn-outline-secondary" id="aiFilterBtn" style="position:absolute; right:0; top:0;">AI Filter</a>
+        </div>
+        <p class="text-center text-muted mb-5">Connect with fellow alumni from your university</p>
+        
+        <div class="card p-4 mb-4">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label for="searchName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="searchName" placeholder="Search by name">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="searchGraduation" class="form-label">Graduation Year</label>
+                    <select class="form-select" id="searchGraduation">
+                        <option value="">All Years</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="searchDegree" class="form-label">Degree</label>
+                    <select class="form-select" id="searchDegree">
+                        <option value="">All Degrees</option>
+                        <option value="Bachelor of Science">Bachelor of Science</option>
+                        <option value="Bachelor of Arts">Bachelor of Arts</option>
+                        <option value="Master of Science">Master of Science</option>
+                        <option value="Master of Business Administration">Master of Business Administration</option>
+                        <option value="Doctor of Philosophy">Doctor of Philosophy</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="searchLocation" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="searchLocation" placeholder="City, State, or Country">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="searchCompany" class="form-label">Company</label>
+                    <input type="text" class="form-control" id="searchCompany" placeholder="Search by company">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="searchIndustry" class="form-label">Industry</label>
+                    <select class="form-select" id="searchIndustry">
+                        <option value="">All Industries</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="E-commerce">E-commerce</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Automotive">Automotive</option>
+                        <option value="Aerospace">Aerospace</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Transportation">Transportation</option>
+                        <option value="Semiconductors">Semiconductors</option>
+                        <option value="Music Streaming">Music Streaming</option>
+                        <option value="Pharmaceuticals">Pharmaceuticals</option>
+                        <option value="Biotechnology">Biotechnology</option>
+                        <option value="Video Conferencing">Video Conferencing</option>
+                        <option value="Professional Networking">Professional Networking</option>
+                        <option value="Collaboration Software">Collaboration Software</option>
+                        <option value="Consulting">Consulting</option>
+                        <option value="Data Analytics">Data Analytics</option>
+                        <option value="Fintech">Fintech</option>
+                        <option value="Clean Energy">Clean Energy</option>
+                        <option value="E-commerce Platform">E-commerce Platform</option>
+                        <option value="International Organization">International Organization</option>
+                        <option value="Gaming Communication">Gaming Communication</option>
+                        <option value="Public Health">Public Health</option>
+                        <option value="Software Development">Software Development</option>
+                        <option value="Neurotechnology">Neurotechnology</option>
+                        <option value="AI Research">AI Research</option>
+                        <option value="Cryptocurrency">Cryptocurrency</option>
+                        <option value="Business Intelligence">Business Intelligence</option>
+                        <option value="Design Software">Design Software</option>
+                        <option value="Media">Media</option>
+                        <option value="Medical Devices">Medical Devices</option>
+                        <option value="Live Streaming">Live Streaming</option>
+                        <option value="Cybersecurity">Cybersecurity</option>
+                        <option value="Productivity Software">Productivity Software</option>
+                        <option value="AI/ML">AI/ML</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Project Management">Project Management</option>
+                        <option value="Robotics">Robotics</option>
+                        <option value="Video Communication">Video Communication</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-end">
+                <button class="btn btn-outline-secondary me-2" id="resetBtn">Reset</button>
+                <button class="btn btn-primary" id="searchBtn">Search</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-9">
+                <div id="alumniList" class="row">
+                    <!-- Alumni cards will be loaded here -->
+                </div>
+
+                <div id="loadingSpinner" class="text-center py-5">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+                <div id="noResults" class="text-center py-5" style="display: none;">
+                    <h4>No alumni found</h4>
+                    <p class="text-muted">Try adjusting your search criteria</p>
+                </div>
+
+                <nav id="pagination" aria-label="Page navigation" style="display: none;">
+                    <ul class="pagination justify-content-center">
+                        <!-- Pagination will be generated here -->
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card p-3">
+                    <h5 class="mb-3"><i class="fas fa-user-friends me-2"></i>My Connections</h5>
+                    <div id="connectionsList" class="list-group small">
+                        <div class="text-muted">No connections yet.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5>AlumniConnect</h5>
+                    <p>Reconnect. Network. Thrive.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="directory.html" class="text-white text-decoration-none">Directory</a></li>
+                        <li><a href="events.html" class="text-white text-decoration-none">Events</a></li>
+                        <li><a href="jobs.html" class="text-white text-decoration-none">Jobs</a></li>
+                        <li><a href="success-stories.html" class="text-white text-decoration-none">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 University Ave, City, State</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> alumni@university.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 AlumniConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        let currentPage = 1;
+        let currentFilters = {};
+        let myConnections = new Set();
+
+        function stableAvatar(user) {
+            if (user.avatarUrl) {
+                // Ensure the avatar URL is properly constructed
+                const avatarUrl = user.avatarUrl.startsWith('http') ? user.avatarUrl : `${AlumniApp.API_BASE.replace('/api', '')}${user.avatarUrl}`;
+                console.log('Using user avatar:', user.firstName, user.lastName, user.avatarUrl, '->', avatarUrl);
+                return avatarUrl;
+            }
+            const seed = (user.id || user._id || user.email || `${user.firstName}${user.lastName}`) + '';
+            let hash = 0;
+            for (let i = 0; i < seed.length; i++) {
+                hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+            }
+            const idx = hash % 100; // randomuser supports 0-99
+            const gender = (hash % 2 === 0) ? 'men' : 'women';
+            const dummyUrl = `https://randomuser.me/api/portraits/${gender}/${idx}.jpg`;
+            console.log('Using dummy avatar for:', user.firstName, user.lastName, '->', dummyUrl);
+            return dummyUrl;
+        }
+
+        async function loadAlumni(page = 1) {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const alumniList = document.getElementById('alumniList');
+            const noResults = document.getElementById('noResults');
+            const pagination = document.getElementById('pagination');
+
+            // Update current page
+            currentPage = page;
+            
+            loadingSpinner.style.display = 'block';
+            alumniList.innerHTML = '';
+            noResults.style.display = 'none';
+            pagination.style.display = 'none';
+
+            try {
+                const params = new URLSearchParams({
+                    page: page,
+                    limit: 12,
+                    ...currentFilters
+                });
+
+                console.log('Loading alumni with params:', params.toString());
+                // Refresh my profile to know current connections
+                try {
+                    const me = await AlumniApp.apiFetch('/auth/me');
+                    myConnections = new Set((me.user.connections || []).map(id => id.toString()));
+                } catch {}
+
+                const data = await AlumniApp.apiFetch(`/users?${params}`);
+                console.log('Received data:', data);
+                
+                loadingSpinner.style.display = 'none';
+
+                if (data.items.length === 0) {
+                    noResults.style.display = 'block';
+                    return;
+                }
+
+                alumniList.innerHTML = data.items.map(user => {
+                    const isConnected = myConnections.has((user._id || '').toString());
+                    const connectBtn = isConnected
+                        ? `<button class="btn btn-success btn-sm ms-2" disabled>Connected</button>`
+                        : `<button class="btn btn-primary btn-sm ms-2" data-connect-id="${user._id}">Connect</button>`;
+                    return `
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card p-3 text-center">
+                            <img src="${stableAvatar(user)}" 
+                                 alt="Alumni" class="rounded-circle mx-auto" width="100" height="100">
+                            <div class="card-body">
+                                <h5 class="card-title">${user.firstName} ${user.lastName}</h5>
+                                <p class="text-muted">Class of ${user.graduationYear || 'N/A'}</p>
+                                <p class="card-text">${user.degree || 'N/A'} ${user.major ? 'in ' + user.major : ''}</p>
+                                <p class="card-text"><i class="fas fa-building me-2"></i> ${user.company || 'N/A'}</p>
+                                <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i> ${user.location || 'N/A'}</p>
+                                <a class="btn btn-outline-primary btn-sm" href="alumni-profile.html?id=${user._id}">View Profile</a>
+                                ${connectBtn}
+                            </div>
+                        </div>
+                    </div>
+                `}).join('');
+
+                // Generate pagination
+                if (data.total > 12) {
+                    generatePagination(currentPage, Math.ceil(data.total / data.limit));
+                }
+
+            } catch (err) {
+                loadingSpinner.style.display = 'none';
+                alert('Failed to load alumni: ' + err.message);
+            }
+        }
+
+        function generatePagination(currentPage, totalPages) {
+            console.log('Generating pagination for page:', currentPage, 'of', totalPages);
+            const pagination = document.getElementById('pagination');
+            const ul = pagination.querySelector('ul');
+            
+            let html = '';
+            
+            // Previous button
+            html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                <a class="page-link" href="#" onclick="loadAlumni(${currentPage - 1})">Previous</a>
+            </li>`;
+
+            // Page numbers
+            for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                    <a class="page-link" href="#" onclick="loadAlumni(${i})">${i}</a>
+                </li>`;
+            }
+
+            // Next button
+            html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                <a class="page-link" href="#" onclick="loadAlumni(${currentPage + 1})">Next</a>
+            </li>`;
+
+            console.log('Generated pagination HTML:', html);
+            ul.innerHTML = html;
+            pagination.style.display = 'block';
+        }
+
+        function searchAlumni() {
+            currentFilters = {
+                q: document.getElementById('searchName').value.trim(),
+                graduationYear: document.getElementById('searchGraduation').value,
+                degree: document.getElementById('searchDegree').value,
+                location: document.getElementById('searchLocation').value.trim(),
+                company: document.getElementById('searchCompany').value.trim(),
+                industry: document.getElementById('searchIndustry').value
+            };
+
+            // Remove empty filters
+            Object.keys(currentFilters).forEach(key => {
+                if (!currentFilters[key]) delete currentFilters[key];
+            });
+
+            currentPage = 1;
+            loadAlumni(1);
+        }
+
+        function resetFilters() {
+            document.getElementById('searchName').value = '';
+            document.getElementById('searchGraduation').value = '';
+            document.getElementById('searchDegree').value = '';
+            document.getElementById('searchLocation').value = '';
+            document.getElementById('searchCompany').value = '';
+            document.getElementById('searchIndustry').value = '';
+            
+            currentFilters = {};
+            currentPage = 1;
+            loadAlumni(1);
+        }
+
+        function viewProfile(userId) {
+            // Navigate directly to avoid popup blockers
+            window.location.href = `alumni-profile.html?id=${encodeURIComponent(userId)}`;
+        }
+
+        async function refreshConnectionsList() {
+            const container = document.getElementById('connectionsList');
+            try {
+                const me = await AlumniApp.apiFetch('/auth/me');
+                const ids = me.user.connections || [];
+                if (!ids.length) {
+                    container.innerHTML = '<div class="text-muted">No connections yet.</div>';
+                    return;
+                }
+                // Fetch each user
+                const items = [];
+                for (const id of ids) {
+                    try {
+                        const u = await AlumniApp.apiFetch(`/users/${id}`);
+                        items.push(u.user);
+                    } catch {}
+                }
+                container.innerHTML = items.map(u => `
+                    <a class="list-group-item list-group-item-action d-flex align-items-center" href="alumni-profile.html?id=${u._id}" target="_blank">
+                        <img src="${stableAvatar(u)}" class="rounded-circle me-2" width="28" height="28" alt="${u.firstName}">
+                        <div>
+                            <div>${u.firstName} ${u.lastName}</div>
+                            <small class="text-muted">${u.company || ''}</small>
+                        </div>
+                    </a>
+                `).join('');
+            } catch (e) {
+                container.innerHTML = '<div class="text-danger">Failed to load connections</div>';
+            }
+        }
+
+        async function connectAlumni(userId, btnEl) {
+            console.log('connectAlumni ->', userId);
+            try {
+                await AlumniApp.apiFetch(`/users/${userId}/connect`, { method: 'POST' });
+                if (btnEl) {
+                    btnEl.outerHTML = '<button class="btn btn-success btn-sm ms-2" disabled>Connected</button>';
+                }
+                await refreshConnectionsList();
+                myConnections.add(userId);
+                // Redirect to profile after connecting
+                window.location.href = `alumni-profile.html?id=${encodeURIComponent(userId)}`;
+            } catch (e) {
+                alert(e.message || 'Failed to connect');
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication first
+            if (!AlumniApp.requireAuth()) return;
+            
+            // Load initial data
+            loadAlumni(1);
+            refreshConnectionsList();
+
+            // Search button
+            document.getElementById('searchBtn').addEventListener('click', searchAlumni);
+            
+            // Reset button
+            document.getElementById('resetBtn').addEventListener('click', resetFilters);
+
+            // Enter key on search inputs
+            ['searchName', 'searchLocation', 'searchCompany'].forEach(id => {
+                document.getElementById(id).addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') searchAlumni();
+                });
+            });
+
+            // Handle pagination clicks
+            document.addEventListener('click', function(e) {
+                // Connect via event delegation (robust against inline handler issues)
+                const connectBtn = e.target.closest('button[data-connect-id]');
+                if (connectBtn) {
+                    const uid = connectBtn.getAttribute('data-connect-id');
+                    connectAlumni(uid, connectBtn);
+                    return;
+                }
+
+                if (e.target.classList.contains('page-link')) {
+                    e.preventDefault();
+                    const text = e.target.textContent.trim();
+                    let page;
+                    
+                    if (text === 'Previous') {
+                        page = Math.max(1, currentPage - 1);
+                    } else if (text === 'Next') {
+                        page = currentPage + 1;
+                    } else {
+                        page = parseInt(text);
+                    }
+                    
+                    if (!isNaN(page) && page > 0) {
+                        console.log('Pagination clicked, loading page:', page);
+                        loadAlumni(page);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

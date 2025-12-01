@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs - AlumniConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>AlumniConnect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="jobs.html">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="success-stories.html">Success Stories</a>
+                    </li>
+                </ul>
+                <div class="d-flex nav-buttons">
+                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Jobs Page -->
+    <div class="container py-5">
+        <h2 class="section-title">Job & Internship Portal</h2>
+        <p class="text-center text-muted mb-5">Explore opportunities posted by our alumni community</p>
+
+        <div class="card p-4 mb-4">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="jobSearch" class="form-label">Search Jobs</label>
+                    <input type="text" class="form-control" id="jobSearch" placeholder="Job title, keywords, or company">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="jobLocation" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="jobLocation" placeholder="City, state, or remote">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="jobCompany" class="form-label">Company</label>
+                    <input type="text" class="form-control" id="jobCompany" placeholder="Company">
+                </div>
+                <div class="col-md-2 mb-3 d-flex align-items-end">
+                    <button id="jobSearchBtn" class="btn btn-primary w-100">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="jobsContainer" class="row"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5>AlumniConnect</h5>
+                    <p>Reconnect. Network. Thrive.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="directory.html" class="text-white text-decoration-none">Directory</a></li>
+                        <li><a href="events.html" class="text-white text-decoration-none">Events</a></li>
+                        <li><a href="jobs.html" class="text-white text-decoration-none">Jobs</a></li>
+                        <li><a href="success-stories.html" class="text-white text-decoration-none">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 University Ave, City, State</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> alumni@university.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 AlumniConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function renderJobs(items, appliedIds){
+            const container=document.getElementById('jobsContainer');
+            container.innerHTML=(items||[]).map(j=>{
+                const isApplied = appliedIds && appliedIds.has(String(j._id));
+                return `
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="job-card card p-3 h-100 d-flex flex-column" data-job-id="${j._id}">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="mb-1">${j.title}</h5>
+                            <span class="badge bg-success">${j.type||'Job'}</span>
+                        </div>
+                        <p class="text-muted small mb-2"><i class="fas fa-building me-2"></i> ${j.company||''} ${j.location? '· '+j.location:''}</p>
+                        <p class="flex-grow-1 small">${j.description? j.description.substring(0,140)+'…' : ''}</p>
+                        <div class="d-flex justify-content-between align-items-center job-action" data-job-id="${j._id}">
+                            ${isApplied ? `<button class="btn btn-sm btn-success" disabled>Applied</button>` : `<a class="btn btn-sm btn-outline-primary" href="job.html?id=${j._id}">Apply</a>`}
+                            <span class="small text-muted">${new Date(j.postedAt||Date.now()).toLocaleDateString()}</span>
+                        </div>
+                    </div>
+                </div>
+            `}).join('') || '<p class="text-muted">No jobs found.</p>';
+        }
+
+        function markJobApplied(id){
+            if (!id) return;
+            // find action containers and replace with Applied button
+            document.querySelectorAll(`.job-action[data-job-id="${id}"]`).forEach(el=>{
+                el.innerHTML = `<button class="btn btn-sm btn-success" disabled>Applied</button><span class="small text-muted">${el.querySelector('.small') ? '' : ''}</span>`;
+            });
+            // also update any full card that may have data-job-id on container
+            document.querySelectorAll(`.job-card[data-job-id="${id}"]`).forEach(card=>{
+                const action = card.querySelector('.job-action');
+                if (action) return; // already updated above
+                const footer = card.querySelector('.d-flex.justify-content-between.align-items-center');
+                if (footer) footer.innerHTML = `<button class="btn btn-sm btn-success" disabled>Applied</button><span class="small text-muted"></span>`;
+            });
+        }
+        async function loadJobs(){
+            const container=document.getElementById('jobsContainer');
+            const q=document.getElementById('jobSearch').value.trim();
+            const company=document.getElementById('jobCompany').value.trim();
+            const location=document.getElementById('jobLocation').value.trim();
+            const params=new URLSearchParams({ limit: 12 });
+            if(q) params.append('q', q);
+            if(company) params.append('company', company);
+            if(location) params.append('location', location);
+            try{
+                container.innerHTML='<div class="col-12 text-center text-muted py-5"><div class="spinner-border text-primary" role="status"></div><p class="mt-3">Loading jobs...</p></div>';
+                const data=await AlumniApp.apiFetch(`/jobs?${params}`);
+                let appliedIds = null;
+                try {
+                    if (AlumniApp.getToken && AlumniApp.getToken()) {
+                        const apps = await AlumniApp.apiFetch('/applications/me');
+                        appliedIds = new Set((apps.applications || []).map(a => String((a.job && a.job._id) || a.job)));
+                    }
+                } catch (e) {
+                    console.warn('Failed to load user applications:', e.message || e);
+                }
+                renderJobs(data.items, appliedIds);
+
+                // Listen for storage events from other tabs/windows and custom events in same window
+                window.addEventListener('storage', (ev)=>{
+                    if (!ev.key) return;
+                    if (ev.key.startsWith('applied_job_')){
+                        const id = ev.key.replace('applied_job_','');
+                        markJobApplied(id);
+                    }
+                });
+                window.addEventListener('applied', (ev)=>{ try{ markJobApplied(ev.detail); }catch(e){} });
+            }catch(err){
+                console.error('Failed to load jobs:', err);
+                container.innerHTML=`<div class="col-12"><div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle me-2"></i>${err.message || 'Failed to load jobs.'}</div></div>`;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', ()=>{ 
+            loadJobs(); 
+            document.getElementById('jobSearchBtn').addEventListener('click', loadJobs); 
+            document.getElementById('jobSearch').addEventListener('keypress', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); loadJobs(); }});
+            ['jobCompany','jobLocation'].forEach(id=>{
+                document.getElementById(id).addEventListener('keypress',(e)=>{ if(e.key==='Enter'){ e.preventDefault(); loadJobs(); }});
+            });
+        });
+    </script>
+</body>
+</html>

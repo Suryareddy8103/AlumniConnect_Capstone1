@@ -1,0 +1,39 @@
+{
+  "name": "alumni-network-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/scripts/bootstrap-env.js && nodemon src/server.js",
+    "seed": "cross-env NODE_ENV=development MONGODB_URI=memory JWT_SECRET=devsecret node src/scripts/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.18",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.2",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "mongodb-memory-server": "^10.1.4",
+    "nodemon": "^3.1.10"
+  }
+}

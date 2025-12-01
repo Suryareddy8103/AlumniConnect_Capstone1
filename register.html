@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - AlumniConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>AlumniConnect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs.html">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="success-stories.html">Success Stories</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Register Page -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card p-4">
+                    <h2 class="text-center mb-4">Create Your Alumni Account</h2>
+                    <form id="registerForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="registerPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="registerPassword" required>
+                                <div class="form-text">Minimum 8 characters.</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="graduationYear" class="form-label">Graduation Year</label>
+                                <select class="form-select" id="graduationYear" required>
+                                    <option value="">Select Year</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="degree" class="form-label">Degree</label>
+                                <select class="form-select" id="degree" required>
+                                    <option value="">Select Degree</option>
+                                    <option value="Bachelor of Science">Bachelor of Science</option>
+                                    <option value="Bachelor of Arts">Bachelor of Arts</option>
+                                    <option value="Master of Science">Master of Science</option>
+                                    <option value="Master of Business Administration">Master of Business Administration</option>
+                                    <option value="Doctor of Philosophy">Doctor of Philosophy</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="major" class="form-label">Major/Field of Study</label>
+                            <input type="text" class="form-control" id="major" required>
+                        </div>
+                        <div class="mb-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="termsAgree" required>
+                            <label class="form-check-label" for="termsAgree">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2">Create Account</button>
+                    </form>
+                    <hr class="my-4">
+                    <div class="text-center">
+                        <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5>AlumniConnect</h5>
+                    <p>Reconnect. Network. Thrive.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="directory.html" class="text-white text-decoration-none">Directory</a></li>
+                        <li><a href="events.html" class="text-white text-decoration-none">Events</a></li>
+                        <li><a href="jobs.html" class="text-white text-decoration-none">Jobs</a></li>
+                        <li><a href="success-stories.html" class="text-white text-decoration-none">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 University Ave, City, State</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> alumni@university.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 AlumniConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        const regForm = document.getElementById('registerForm');
+        regForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            const graduationYear = document.getElementById('graduationYear').value;
+            const degree = document.getElementById('degree').value;
+            const major = document.getElementById('major').value.trim();
+
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long.');
+                return;
+            }
+            if (password !== confirm) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            try {
+                const data = await AlumniApp.apiFetch('/auth/register', {
+                    method: 'POST',
+                    body: JSON.stringify({ firstName, lastName, email, password, graduationYear, degree, major })
+                });
+                AlumniApp.setToken(data.token);
+                window.location.href = 'dashboard.html';
+            } catch (err) {
+                // Try to parse validation errors from API and show the first one
+                try {
+                    const parsed = JSON.parse(err.message);
+                    if (parsed && parsed.errors && parsed.errors.length) {
+                        alert(parsed.errors[0].msg || 'Registration failed');
+                        return;
+                    }
+                } catch (_) {}
+                alert(err.message || 'Registration failed');
+            }
+        });
+    </script>
+</body>
+</html>

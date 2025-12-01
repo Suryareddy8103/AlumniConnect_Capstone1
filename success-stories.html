@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Stories - AlumniConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>AlumniConnect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs.html">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="success-stories.html">Success Stories</a>
+                    </li>
+                </ul>
+                <div class="d-flex nav-buttons">
+                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Success Stories Page -->
+    <div class="container py-5">
+        <h2 class="section-title">Alumni Success Stories</h2>
+        <p class="text-center text-muted mb-5">Discover inspiring stories from our alumni community</p>
+
+        <div class="row mb-4">
+            <div class="col-lg-8 mx-auto">
+                <div class="card p-4 mb-4">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="searchStories" class="form-label">Search Stories</label>
+                            <input type="text" class="form-control" id="searchStories" placeholder="Search by name, company, or field">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="filterIndustry" class="form-label">Industry</label>
+                            <select class="form-select" id="filterIndustry">
+                                <option value="">All Industries</option>
+                                <option value="tech">Technology</option>
+                                <option value="finance">Finance</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="education">Education</option>
+                                <option value="entrepreneurship">Entrepreneurship</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="filterYear" class="form-label">Graduation Year</label>
+                            <select class="form-select" id="filterYear">
+                                <option value="">All Years</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button class="btn btn-outline-secondary me-2">Reset</button>
+                        <button class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="card p-4 mb-4">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Alumni" class="rounded-circle mb-3" width="120" height="120">
+                            <h5>Jennifer Parker</h5>
+                            <p class="text-muted">Class of 2015</p>
+                            <p class="text-muted">B.S. Computer Science</p>
+                            <p class="text-muted"><i class="fas fa-building me-2"></i> Google</p>
+                            <p class="text-muted"><i class="fas fa-map-marker-alt me-2"></i> San Francisco, CA</p>
+                        </div>
+                        <div class="col-md-9">
+                            <h4>From Campus to Google: My Journey as a Software Engineer</h4>
+                            <div class="d-flex mb-3">
+                                <span class="badge bg-primary me-2">Technology</span>
+                                <span class="badge bg-success">Career Growth</span>
+                            </div>
+                            <p>After graduating in 2015, I joined Google as a junior software engineer. The alumni network played a crucial role in my career journey. Through connections I made on this platform, I received mentorship from senior alumni already working at Google.</p>
+                            <p>What started as an internship referral turned into a full-time position. The technical skills I gained at university provided a strong foundation, but it was the soft skills and networking opportunities that truly accelerated my career.</p>
+                            <p>Five years later, I'm now a senior engineer leading a team of my own. I frequently return to campus to recruit new talent and mentor current students, paying forward the support I received.</p>
+                            <button class="btn btn-outline-primary">Read Full Story</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-4 mb-4">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Alumni" class="rounded-circle mb-3" width="120" height="120">
+                            <h5>Michael Johnson</h5>
+                            <p class="text-muted">Class of 2012</p>
+                            <p class="text-muted">MBA</p>
+                            <p class="text-muted"><i class="fas fa-building me-2"></i> Microsoft</p>
+                            <p class="text-muted"><i class="fas fa-map-marker-alt me-2"></i> Seattle, WA</p>
+                        </div>
+                        <div class="col-md-9">
+                            <h4>Building Products That Impact Millions</h4>
+                            <div class="d-flex mb-3">
+                                <span class="badge bg-primary me-2">Technology</span>
+                                <span class="badge bg-info">Product Management</span>
+                            </div>
+                            <p>My journey from business student to Product Manager at Microsoft was anything but linear. After completing my MBA in 2012, I worked in several roles before finding my passion in product management.</p>
+                            <p>The turning point came when I connected with an alumni mentor through this platform who worked at Microsoft. Their guidance helped me navigate the interview process and understand what it takes to succeed in tech product management.</p>
+                            <p>Now, I lead a team responsible for features used by millions of people worldwide. The problem-solving skills I developed during my university years continue to serve me well in my daily work.</p>
+                            <button class="btn btn-outline-primary">Read Full Story</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-4 mb-4">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Alumni" class="rounded-circle mb-3" width="120" height="120">
+                            <h5>Sarah Williams</h5>
+                            <p class="text-muted">Class of 2018</p>
+                            <p class="text-muted">M.S. Data Science</p>
+                            <p class="text-muted"><i class="fas fa-building me-2"></i> Amazon</p>
+                            <p class="text-muted"><i class="fas fa-map-marker-alt me-2"></i> New York, NY</p>
+                        </div>
+                        <div class="col-md-9">
+                            <h4>From Research to Real-World Data Solutions</h4>
+                            <div class="d-flex mb-3">
+                                <span class="badge bg-primary me-2">Technology</span>
+                                <span class="badge bg-warning">Data Science</span>
+                            </div>
+                            <p>After completing my Master's in Data Science, I joined Amazon as a data scientist. My graduate research project caught the attention of an Amazon recruiter who reached out through the alumni network.</p>
+                            <p>At Amazon, I work on developing machine learning models that improve customer experiences. The rigorous research training I received at university prepared me for tackling complex, ambiguous problems.</p>
+                            <p>I'm grateful for the alumni connections that helped me secure this position. Now I actively participate in campus recruiting events and mentor students interested in data science careers.</p>
+                            <button class="btn btn-outline-primary">Read Full Story</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-4">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Alumni" class="rounded-circle mb-3" width="120" height="120">
+                            <h5>Robert Chen</h5>
+                            <p class="text-muted">Class of 2010</p>
+                            <p class="text-muted">B.S. Electrical Engineering</p>
+                            <p class="text-muted"><i class="fas fa-building me-2"></i> Tesla</p>
+                            <p class="text-muted"><i class="fas fa-map-marker-alt me-2"></i> Austin, TX</p>
+                        </div>
+                        <div class="col-md-9">
+                            <h4>Engineering the Future of Transportation</h4>
+                            <div class="d-flex mb-3">
+                                <span class="badge bg-success me-2">Engineering</span>
+                                <span class="badge bg-info">Innovation</span>
+                            </div>
+                            <p>As a senior engineer at Tesla, I work on cutting-edge battery technology that powers the future of transportation. My journey began in the electrical engineering labs at university, where I developed a passion for sustainable energy solutions.</p>
+                            <p>After graduation, I worked at several automotive companies before landing my dream job at Tesla. An alumni connection referred me to the hiring manager, which gave my application a significant boost.</p>
+                            <p>The technical foundation I built at university, combined with the professional network I developed through alumni events, has been instrumental in my career success. I frequently collaborate with university researchers on new projects.</p>
+                            <button class="btn btn-outline-primary">Read Full Story</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation" class="mt-5">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Share Your Story Section -->
+    <section class="container mb-5">
+        <div class="card bg-primary text-white py-5 px-4 text-center">
+            <h2 class="mb-3">Share Your Success Story</h2>
+            <p class="lead mb-4">Inspire others by sharing your career journey and achievements</p>
+            <button class="btn btn-light btn-lg px-5">Submit Your Story</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5>AlumniConnect</h5>
+                    <p>Reconnect. Network. Thrive.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="directory.html" class="text-white text-decoration-none">Directory</a></li>
+                        <li><a href="events.html" class="text-white text-decoration-none">Events</a></li>
+                        <li><a href="jobs.html" class="text-white text-decoration-none">Jobs</a></li>
+                        <li><a href="success-stories.html" class="text-white text-decoration-none">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 University Ave, City, State</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> alumni@university.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 AlumniConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

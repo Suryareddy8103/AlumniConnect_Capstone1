@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Profile - AlumniConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>AlumniConnect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="directory.html">Directory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="jobs.html">Jobs</a></li>
+                </ul>
+                <div class="d-flex nav-buttons">
+                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div id="profileCard" class="card p-4 mb-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <img id="avatar" class="rounded-circle me-4" width="96" height="96" alt="Avatar">
+                <div class="flex-grow-1">
+                    <h2 id="fullName" class="mb-1">Alumni Name</h2>
+                    <div class="text-muted" id="headline">Headline</div>
+                    <div class="text-muted small">
+                        <span id="company"></span>
+                        <span id="location" class="ms-2"></span>
+                    </div>
+                </div>
+                <div>
+                    <button id="connectBtn" class="btn btn-primary">Connect</button>
+                    <button id="disconnectBtn" class="btn btn-outline-danger d-none ms-2">Disconnect</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="card p-4 mb-4">
+                    <h4 class="mb-3">About</h4>
+                    <p id="bio" class="mb-0"></p>
+                </div>
+
+                <div class="card p-4">
+                    <h4 class="mb-3">Success Story</h4>
+                    <div id="successStory">
+                        <div class="text-muted">No success story available.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-4">
+                    <h5 class="mb-3">Education</h5>
+                    <div id="education"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 AlumniConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function stableAvatar(user) {
+            if (user.avatarUrl) {
+                return user.avatarUrl.startsWith('http') ? user.avatarUrl : `${AlumniApp.API_BASE.replace('/api', '')}${user.avatarUrl}`;
+            }
+            return 'https://randomuser.me/api/portraits/men/12.jpg';
+        }
+
+        async function loadProfile() {
+            if (!AlumniApp.requireAuth()) return;
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if (!id) { alert('Missing profile id'); return; }
+            try {
+                const data = await AlumniApp.apiFetch(`/users/${id}`);
+                const u = data.user;
+                document.getElementById('avatar').src = stableAvatar(u);
+                document.getElementById('fullName').textContent = `${u.firstName} ${u.lastName}`;
+                document.getElementById('headline').textContent = u.headline || '';
+                document.getElementById('company').textContent = u.company ? `Company: ${u.company}` : '';
+                document.getElementById('location').textContent = u.location ? `• ${u.location}` : '';
+                document.getElementById('bio').textContent = u.bio || 'No bio provided.';
+                document.getElementById('education').innerHTML = `
+                    <div><strong>Degree:</strong> ${u.degree || '-'}</div>
+                    <div><strong>Major:</strong> ${u.major || '-'}</div>
+                    <div><strong>Graduation Year:</strong> ${u.graduationYear || '-'}</div>
+                `;
+
+                // Determine connection status
+                try {
+                    const me = await AlumniApp.apiFetch('/auth/me');
+                    const connected = (me.user.connections || []).some(cid => cid.toString() === u._id.toString());
+                    const connectBtn = document.getElementById('connectBtn');
+                    const disconnectBtn = document.getElementById('disconnectBtn');
+                    if (me.user._id && me.user._id.toString() === u._id.toString()) {
+                        connectBtn.className = 'btn btn-secondary';
+                        connectBtn.textContent = 'This is you';
+                        connectBtn.disabled = true;
+                        disconnectBtn.classList.add('d-none');
+                    } else if (connected) {
+                        connectBtn.classList.add('d-none');
+                        disconnectBtn.classList.remove('d-none');
+                        disconnectBtn.onclick = async () => {
+                            try {
+                                await AlumniApp.apiFetch(`/users/${u._id}/disconnect`, { method: 'POST' });
+                                disconnectBtn.classList.add('d-none');
+                                connectBtn.classList.remove('d-none');
+                                connectBtn.className = 'btn btn-primary';
+                                connectBtn.textContent = 'Connect';
+                                connectBtn.disabled = false;
+                                connectBtn.onclick = async () => {
+                                    try {
+                                        await AlumniApp.apiFetch(`/users/${u._id}/connect`, { method: 'POST' });
+                                        connectBtn.classList.add('d-none');
+                                        disconnectBtn.classList.remove('d-none');
+                                    } catch (e) { alert(e.message || 'Failed to connect'); }
+                                };
+                            } catch (e) { alert(e.message || 'Failed to disconnect'); }
+                        };
+                    } else {
+                        disconnectBtn.classList.add('d-none');
+                        connectBtn.classList.remove('d-none');
+                        connectBtn.onclick = async () => {
+                            try {
+                                await AlumniApp.apiFetch(`/users/${u._id}/connect`, { method: 'POST' });
+                                connectBtn.classList.add('d-none');
+                                disconnectBtn.classList.remove('d-none');
+                            } catch (e) { alert(e.message || 'Failed to connect'); }
+                        };
+                    }
+                } catch {}
+
+                // Load success story (first by author); fallback to dummy
+                try {
+                    const stories = await AlumniApp.apiFetch(`/stories?author=${u._id}&limit=1`);
+                    if (stories.items && stories.items.length) {
+                        const s = stories.items[0];
+                        document.getElementById('successStory').innerHTML = `
+                            <h5 class="mb-1">${s.title}</h5>
+                            <div class="text-muted mb-2">${s.company || ''} ${s.year ? '• ' + s.year : ''}</div>
+                            <p class="mb-0">${s.content}</p>
+                        `;
+                    } else {
+                        document.getElementById('successStory').innerHTML = `
+                            <h5 class="mb-1">From Grad to Pro</h5>
+                            <div class="text-muted mb-2">${u.company || 'Top Company'} • ${u.graduationYear || '2020'}</div>
+                            <p class="mb-0">${u.firstName} leveraged the alumni network to land impactful roles and give back as a mentor. Their journey highlights perseverance, community, and continuous learning.</p>
+                        `;
+                    }
+                } catch {
+                    document.getElementById('successStory').innerHTML = `
+                        <h5 class="mb-1">From Grad to Pro</h5>
+                        <p class="mb-0">${u.firstName} leveraged the alumni network to land impactful roles and give back as a mentor.</p>
+                    `;
+                }
+            } catch (e) {
+                alert(e.message || 'Failed to load profile');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AlumniConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>AlumniConnect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs.html">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="success-stories.html">Success Stories</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Page -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card p-4">
+                    <h2 class="text-center mb-4">Sign In to Your Account</h2>
+                    
+                    <!-- Login Type Selection -->
+                    <div class="mb-4">
+                        <div class="btn-group w-100" role="group" aria-label="Login type selection">
+                            <input type="radio" class="btn-check" name="loginType" id="alumniLogin" value="alumni" checked>
+                            <label class="btn btn-outline-primary" for="alumniLogin">
+                                <i class="fas fa-user me-2"></i>Alumni Login
+                            </label>
+                            
+                            <input type="radio" class="btn-check" name="loginType" id="adminLogin" value="admin">
+                            <label class="btn btn-outline-primary" for="adminLogin">
+                                <i class="fas fa-user-shield me-2"></i>Admin Login
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2 mb-3" id="loginButton">
+                            <span id="loginButtonText">Sign In as Alumni</span>
+                        </button>
+                        <div class="text-center">
+                            <a href="#" onclick="alert('Password reset functionality would be implemented here')">Forgot your password?</a>
+                        </div>
+                    </form>
+                    <hr class="my-4">
+                    <div class="text-center">
+                        <p>Don't have an account? <a href="register.html">Register here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5>AlumniConnect</h5>
+                    <p>Reconnect. Network. Thrive.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="directory.html" class="text-white text-decoration-none">Directory</a></li>
+                        <li><a href="events.html" class="text-white text-decoration-none">Events</a></li>
+                        <li><a href="jobs.html" class="text-white text-decoration-none">Jobs</a></li>
+                        <li><a href="success-stories.html" class="text-white text-decoration-none">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 University Ave, City, State</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> alumni@university.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 AlumniConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        const form = document.getElementById('loginForm');
+        const loginTypeRadios = document.querySelectorAll('input[name="loginType"]');
+        const loginButtonText = document.getElementById('loginButtonText');
+        const loginButton = document.getElementById('loginButton');
+        
+        // Update button text based on selected login type
+        loginTypeRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'admin') {
+                    loginButtonText.textContent = 'Sign In as Admin';
+                    loginButton.classList.remove('btn-primary');
+                    loginButton.classList.add('btn-danger');
+                } else {
+                    loginButtonText.textContent = 'Sign In as Alumni';
+                    loginButton.classList.remove('btn-danger');
+                    loginButton.classList.add('btn-primary');
+                }
+            });
+        });
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const loginType = document.querySelector('input[name="loginType"]:checked').value;
+            
+            console.log('Attempting login with:', email);
+            console.log('Login type:', loginType);
+            console.log('API Base URL:', AlumniApp.API_BASE);
+            
+            // If admin is selected, redirect to admin.html (admin dashboard)
+            if (loginType === 'admin') {
+                // Try to login first to verify credentials
+                try {
+                    const data = await AlumniApp.apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+                    if (!data.user || !data.user.roles || !data.user.roles.includes('admin')) {
+                        alert('Access denied. Admin privileges required.');
+                        return;
+                    }
+                    AlumniApp.setToken(data.token);
+                    window.location.href = 'admin.html';
+                } catch (err) {
+                    alert(err.message || 'Admin login failed. Please check your credentials.');
+                }
+                return;
+            }
+            
+            // Alumni login flow
+            try {
+                const data = await AlumniApp.apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+                console.log('Login successful:', data);
+                AlumniApp.setToken(data.token);
+                window.location.href = 'dashboard.html';
+            } catch (err) {
+                console.error('Login error:', err);
+                alert(err.message || 'Login failed');
+            }
+        });
+        
+        // Simple page load handler
+        window.addEventListener('load', () => {
+            console.log('Login page loaded');
+        });
+    </script>
+</body>
+</html>

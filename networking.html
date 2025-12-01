@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Networking - AlumniConnect</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+		<div class="container">
+			<a class="navbar-brand" href="index.html"><i class="fas fa-graduation-cap me-2"></i>AlumniConnect</a>
+		</div>
+	</nav>
+	<div class="container py-4">
+		<h2 class="section-title">Networking</h2>
+		<p class="text-center text-muted mb-4">Find alumni and connect</p>
+		<div class="card p-3 mb-4">
+			<div class="row g-2">
+				<div class="col-md-4"><input id="q" class="form-control" placeholder="Search by name, company, industry"></div>
+				<div class="col-md-2"><input id="company" class="form-control" placeholder="Company"></div>
+				<div class="col-md-2"><input id="location" class="form-control" placeholder="Location"></div>
+				<div class="col-md-2"><select id="year" class="form-select"><option value="">All Years</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option></select></div>
+				<div class="col-md-2 text-end"><button id="searchBtn" class="btn btn-primary w-100">Search</button></div>
+			</div>
+		</div>
+		<div id="list" class="row"></div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="app.js"></script>
+	<script>
+		function stableAvatar(user){
+			if (user.avatarUrl) {
+				return user.avatarUrl.startsWith('http') ? user.avatarUrl : `${AlumniApp.API_BASE.replace('/api', '')}${user.avatarUrl}`;
+			}
+			const seed=(user.id||user._id||user.email||'')+'';let h=0;for(let i=0;i<seed.length;i++){h=(h*31+seed.charCodeAt(i))>>>0}const i=h%100;const g=h%2===0?'men':'women';return `https://randomuser.me/api/portraits/${g}/${i}.jpg`;
+		}
+		async function load(page=1){
+			const q=document.getElementById('q').value.trim();
+			const company=document.getElementById('company').value.trim();
+			const location=document.getElementById('location').value.trim();
+			const graduationYear=document.getElementById('year').value;
+			const params=new URLSearchParams({page,limit:12,q,company,location,graduationYear});
+			const data=await AlumniApp.apiFetch(`/users?${params}`);
+			document.getElementById('list').innerHTML=(data.items||[]).map(u=>`
+				<div class="col-md-6 col-lg-4 mb-3">
+					<div class="card p-3 text-center">
+						<img src="${stableAvatar(u)}" class="rounded-circle mx-auto" width="90" height="90" />
+						<h6 class="mt-2 mb-0">${u.firstName} ${u.lastName}</h6>
+						<p class="text-muted small mb-1">${u.company||''}</p>
+						<p class="text-muted small">${u.location||''}</p>
+						<div class="d-flex justify-content-center gap-2">
+							<button class="btn btn-sm btn-outline-primary" onclick="connect('${u._id||u.id}')">Connect</button>
+							<button class="btn btn-sm btn-outline-secondary" onclick="disconnect('${u._id||u.id}')">Disconnect</button>
+						</div>
+					</div>
+				</div>
+			`).join('')||'<p class="text-muted">No results</p>';
+		}
+		async function connect(id){ try { await AlumniApp.apiFetch(`/users/${id}/connect`, { method:'POST' }); alert('Request sent'); } catch(e){ alert(e.message);} }
+		async function disconnect(id){ try { await AlumniApp.apiFetch(`/users/${id}/disconnect`, { method:'POST' }); alert('Disconnected'); } catch(e){ alert(e.message);} }
+		document.addEventListener('DOMContentLoaded', ()=>{ if(!AlumniApp.requireAuth()) return; document.getElementById('searchBtn').addEventListener('click',()=>load(1)); load(1); });
+	</script>
+</body>
+</html>

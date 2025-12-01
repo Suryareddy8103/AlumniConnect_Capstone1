@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - AlumniConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        .item-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: box-shadow 0.3s;
+        }
+        .item-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-action {
+            margin: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .status-alert {
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 14px;
+            display: none;
+        }
+        .status-alert.show {
+            display: block;
+        }
+        .status-alert.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status-alert.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status-alert.loading {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>AlumniConnect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs.html">Jobs</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="dashboard.html" id="dashboardBtn" class="btn btn-outline-primary me-2 hidden"><i class="fas fa-tachometer-alt me-1"></i> Dashboard</a>
+                    <button id="logoutBtn" class="btn btn-outline-danger me-2 hidden">Logout</button>
+                    <a href="login.html" class="btn btn-outline-primary me-2">Student Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section (shown when not logged in) -->
+    <div id="loginSection" class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card p-4">
+                    <h2 class="text-center mb-4">Admin Portal</h2>
+                    <p class="text-center text-muted mb-4">Access the administrative dashboard</p>
+                    <form id="adminLoginForm">
+                        <div class="mb-3">
+                            <label for="adminEmail" class="form-label">Admin Email</label>
+                            <input type="email" class="form-control" id="adminEmail" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="adminPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="adminPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2 mb-3">Sign In as Admin</button>
+                    </form>
+                    <hr class="my-4">
+                    <div class="text-center">
+                        <p>Looking for student login? <a href="login.html">Student portal here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (shown when logged in) -->
+    <div id="dashboardSection" class="hidden">
+        <div class="admin-header">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1><i class="fas fa-user-shield me-2"></i>Admin Dashboard</h1>
+                        <p class="mb-0">Manage Jobs, Alumni, and Events</p>
+                    </div>
+                    <a href="dashboard.html" class="btn btn-light btn-lg">
+                        <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Tabs Navigation -->
+            <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="jobs-tab" data-bs-toggle="tab" data-bs-target="#jobs" type="button">
+                        <i class="fas fa-briefcase me-2"></i>Jobs Management
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button">
+                        <i class="fas fa-users me-2"></i>Alumni Management
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button">
+                        <i class="fas fa-calendar-alt me-2"></i>Events Management
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="adminTabContent">
+                <!-- Jobs Tab -->
+                <div class="tab-pane fade show active" id="jobs" role="tabpanel">
+                    <div class="admin-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3><i class="fas fa-briefcase me-2"></i>Jobs</h3>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addJobModal">
+                                <i class="fas fa-plus me-2"></i>Add New Job
+                            </button>
+                        </div>
+                        <div id="jobsList"></div>
+                    </div>
+                </div>
+
+                <!-- Users/Alumni Tab -->
+                <div class="tab-pane fade" id="users" role="tabpanel">
+                    <div class="admin-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3><i class="fas fa-users me-2"></i>Alumni</h3>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                                <i class="fas fa-plus me-2"></i>Add New Alumni
+                            </button>
+                        </div>
+                        <div id="usersList"></div>
+                    </div>
+                </div>
+
+                <!-- Events Tab -->
+                <div class="tab-pane fade" id="events" role="tabpanel">
+                    <div class="admin-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3><i class="fas fa-calendar-alt me-2"></i>Events</h3>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">
+                                <i class="fas fa-plus me-2"></i>Create New Event
+                            </button>
+                        </div>
+                        <div id="eventsList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Job Modal -->
+    <div class="modal fade" id="addJobModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="jobModalTitle">Add New Job</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addJobForm">
+                        <div class="mb-3">
+                            <label class="form-label">Title *</label>
+                            <input type="text" class="form-control" id="jobTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Company</label>
+                            <input type="text" class="form-control" id="jobCompany">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-control" id="jobLocation">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="jobDescription" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Qualifications</label>
+                            <textarea class="form-control" id="jobQualifications" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Application URL</label>
+                            <input type="url" class="form-control" id="jobApplicationUrl">
+                        </div>
+                    </form>
+                    <div id="jobStatus" class="status-alert"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="addJobSubmitBtn" type="button" class="btn btn-primary" onclick="submitJob()">Add Job</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Alumni</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addUserForm">
+                        <div class="mb-3">
+                            <label class="form-label">First Name *</label>
+                            <input type="text" class="form-control" id="userFirstName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Last Name *</label>
+                            <input type="text" class="form-control" id="userLastName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="userEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password *</label>
+                            <input type="password" class="form-control" id="userPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Graduation Year</label>
+                            <input type="number" class="form-control" id="userGraduationYear">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Degree</label>
+                            <input type="text" class="form-control" id="userDegree">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Major</label>
+                            <input type="text" class="form-control" id="userMajor">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Company</label>
+                            <input type="text" class="form-control" id="userCompany">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-control" id="userLocation">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Industry</label>
+                            <input type="text" class="form-control" id="userIndustry">
+                        </div>
+                    </form>
+                    <div id="userStatus" class="status-alert"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="addUserSubmitBtn" type="button" class="btn btn-primary" onclick="submitUser()">Add Alumni</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Event Modal -->
+    <div class="modal fade" id="addEventModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addEventForm">
+                        <div class="mb-3">
+                            <label class="form-label">Title *</label>
+                            <input type="text" class="form-control" id="eventTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-control" id="eventLocation">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Date & Time *</label>
+                            <input type="datetime-local" class="form-control" id="eventDatetime" required>
+                        </div>
+                    </form>
+                    <div id="eventStatus" class="status-alert"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="addEventSubmitBtn" type="button" class="btn btn-primary" onclick="submitEvent()">Create Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // ===== FIX 1: safe logger so addLog() calls don't crash =====
+        function addLog(...args) {
+            if (window.console && console.log) {
+                console.log(...args);
+            }
+        }
+
+        // State for edit mode
+        let editingJobId = null;
+        let editingUserId = null;
+        let editingEventId = null;
+
+        // Show/hide status alerts with auto-dismiss
+        function showStatus(elementId, message, type = 'loading') {
+            const statusEl = document.getElementById(elementId);
+            if (!statusEl) return;
+            statusEl.textContent = message;
+            statusEl.className = `status-alert show ${type}`;
+            if (type !== 'loading') {
+                setTimeout(() => {
+                    statusEl.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        function showLogin() {
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.add('hidden');
+            document.getElementById('logoutBtn').classList.add('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            document.getElementById('logoutBtn').classList.remove('hidden');
+            document.getElementById('dashboardBtn').classList.remove('hidden');
+        }
+
+        // ===== FIX 2: safer auth check if AlumniApp is missing =====
+        async function checkAuth() {
+            if (!window.AlumniApp || !AlumniApp.getToken) {
+                showLogin();
+                return;
+            }
+
+            const token = AlumniApp.getToken();
+            if (!token) {
+                showLogin();
+                return;
+            }
+
+            try {
+                const userData = await AlumniApp.apiFetch('/auth/me');
+                if (!userData.user.roles || !userData.user.roles.includes('admin')) {
+                    alert('❌ Access denied. Admin privileges required.');
+                    AlumniApp.clearToken();
+                    showLogin();
+                    return;
+                }
+                showDashboard();
+                loadAllData();
+            } catch (err) {
+                console.error('❌ Auth check failed:', err);
+                showLogin();
+            }
+        }
+
+        // Login form handler
+        document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value.trim();
+            const password = document.getElementById('adminPassword').value;
+
+            try {
+                const data = await AlumniApp.apiFetch('/auth/login', { 
+                    method: 'POST', 
+                    body: JSON.stringify({ email, password }) 
+                });
+                
+                if (!data.user || !data.user.roles || !data.user.roles.includes('admin')) {
+                    alert('❌ Access denied. Admin privileges required.');
+                    return;
+                }
+                
+                AlumniApp.setToken(data.token);
+                showDashboard();
+                loadAllData();
+            } catch (err) {
+                alert('❌ Login failed:\n' + (err.message || 'Please check your credentials.'));
+            }
+        });
+
+        // Logout handler
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (window.AlumniApp && AlumniApp.clearToken) {
+                AlumniApp.clearToken();
+            }
+            showLogin();
+        });
+
+        // Load all data on init
+        async function loadAllData() {
+            await Promise.all([loadJobs(), loadUsers(), loadEvents()]);
+        }
+
+        // ==================== JOBS MANAGEMENT ====================
+        async function loadJobs() {
+            try {
+                const data = await AlumniApp.apiFetch('/jobs?limit=100');
+                const jobsList = document.getElementById('jobsList');
+                if (!data.items || data.items.length === 0) {
+                    jobsList.innerHTML = '<p class="text-muted">No jobs found.</p>';
+                    return;
+                }
+                jobsList.innerHTML = data.items.map(job => `
+                    <div class="item-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <h5>${job.title}</h5>
+                                <p class="mb-1"><strong>Company:</strong> ${job.company || 'N/A'}</p>
+                                <p class="mb-1"><strong>Location:</strong> ${job.location || 'N/A'}</p>
+                                ${job.description ? `<p class="mb-1"><small>${job.description.substring(0, 100)}${job.description.length > 100 ? '...' : ''}</small></p>` : ''}
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-warning btn-action" onclick="editJob('${job._id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger btn-action" onclick="deleteJob('${job._id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error('❌ Error loading jobs:', err);
+                document.getElementById('jobsList').innerHTML = `<p class="text-danger"><i class="fas fa-exclamation-circle"></i> Error loading jobs: ${err.message}</p>`;
+            }
+        }
+
+        async function editJob(jobId) {
+            try {
+                const data = await AlumniApp.apiFetch(`/jobs/${jobId}`);
+                const job = data.job || data;
+                document.getElementById('jobTitle').value = job.title || '';
+                document.getElementById('jobCompany').value = job.company || '';
+                document.getElementById('jobLocation').value = job.location || '';
+                document.getElementById('jobDescription').value = job.description || '';
+                document.getElementById('jobQualifications').value = job.qualifications || '';
+                document.getElementById('jobApplicationUrl').value = job.applicationUrl || '';
+                editingJobId = jobId;
+                const titleEl = document.getElementById('jobModalTitle');
+                if (titleEl) titleEl.textContent = 'Edit Job';
+                const btn = document.getElementById('addJobSubmitBtn');
+                if (btn) { btn.textContent = 'Save Changes'; }
+                const modal = new bootstrap.Modal(document.getElementById('addJobModal'));
+                modal.show();
+            } catch (err) {
+                alert('❌ Could not load job for editing: ' + (err.message || 'Unknown'));
+            }
+        }
+
+        async function submitJob() {
+            const jobTitle = document.getElementById('jobTitle').value.trim();
+            
+            if (!jobTitle) {
+                showStatus('jobStatus', '❌ Job Title is required!', 'error');
+                return;
+            }
+
+            const jobData = {
+                title: jobTitle,
+                company: document.getElementById('jobCompany').value.trim() || null,
+                location: document.getElementById('jobLocation').value.trim() || null,
+                description: document.getElementById('jobDescription').value.trim() || null,
+                qualifications: document.getElementById('jobQualifications').value.trim() || null,
+                applicationUrl: document.getElementById('jobApplicationUrl').value.trim() || null
+            };
+
+            const submitBtn = document.getElementById('addJobSubmitBtn');
+            try {
+                showStatus('jobStatus', '📝 Submitting job...', 'loading');
+                submitBtn.disabled = true;
+
+                let response;
+                if (editingJobId) {
+                    response = await AlumniApp.apiFetch(`/jobs/${editingJobId}`, {
+                        method: 'PATCH',
+                        body: JSON.stringify(jobData)
+                    });
+                    showStatus('jobStatus', '✅ Job updated successfully!', 'success');
+                    editingJobId = null;
+                    const titleEl = document.getElementById('jobModalTitle'); if (titleEl) titleEl.textContent = 'Add New Job';
+                    const btnEl = document.getElementById('addJobSubmitBtn'); if (btnEl) btnEl.textContent = 'Add Job';
+                } else {
+                    response = await AlumniApp.apiFetch('/jobs', {
+                        method: 'POST',
+                        body: JSON.stringify(jobData)
+                    });
+                    showStatus('jobStatus', '✅ Job created successfully!', 'success');
+                }
+
+                document.getElementById('addJobForm').reset();
+                bootstrap.Modal.getInstance(document.getElementById('addJobModal')).hide();
+
+                await loadJobs();
+                alert('✅ Job saved successfully!\n\nTitle: ' + jobTitle);
+            } catch (err) {
+                console.error('❌ Add job error:', err);
+                showStatus('jobStatus', '❌ Error: ' + (err.message || 'Unknown error'), 'error');
+                alert('❌ Error adding job:\n' + (err.message || 'Unknown error'));
+            } finally {
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function deleteJob(jobId) {
+            if (!confirm('⚠️ Are you sure you want to delete this job? This action cannot be undone.')) return;
+            try {
+                await AlumniApp.apiFetch(`/jobs/${jobId}`, { method: 'DELETE' });
+                await loadJobs();
+                alert('✅ Job deleted successfully!');
+            } catch (err) {
+                console.error('❌ Delete job error:', err);
+                alert('❌ Error deleting job:\n' + (err.message || 'Unknown error'));
+            }
+        }
+
+        // ==================== USERS/ALUMNI MANAGEMENT ====================
+        async function loadUsers() {
+            try {
+                const data = await AlumniApp.apiFetch('/users?limit=100');
+                const usersList = document.getElementById('usersList');
+                if (!data.items || data.items.length === 0) {
+                    usersList.innerHTML = '<p class="text-muted">No users found.</p>';
+                    return;
+                }
+                usersList.innerHTML = data.items.map(user => `
+                    <div class="item-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <h5>${user.firstName} ${user.lastName}</h5>
+                                <p class="mb-1"><strong>Email:</strong> ${user.email}</p>
+                                ${user.company ? `<p class="mb-1"><strong>Company:</strong> ${user.company}</p>` : ''}
+                                ${user.graduationYear ? `<p class="mb-1"><strong>Graduation Year:</strong> ${user.graduationYear}</p>` : ''}
+                                ${user.major ? `<p class="mb-1"><strong>Major:</strong> ${user.major}</p>` : ''}
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-warning btn-action" onclick="editUser('${user._id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger btn-action" onclick="deleteUser('${user._id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error('❌ Error loading users:', err);
+                document.getElementById('usersList').innerHTML = `<p class="text-danger"><i class="fas fa-exclamation-circle"></i> Error loading users: ${err.message}</p>`;
+            }
+        }
+
+        async function editUser(userId) {
+            try {
+                const res = await AlumniApp.apiFetch(`/users/${userId}`);
+                const user = res.user || res;
+                document.getElementById('userFirstName').value = user.firstName || '';
+                document.getElementById('userLastName').value = user.lastName || '';
+                document.getElementById('userEmail').value = user.email || '';
+                document.getElementById('userPassword').value = '';
+                document.getElementById('userGraduationYear').value = user.graduationYear || '';
+                document.getElementById('userDegree').value = user.degree || '';
+                document.getElementById('userMajor').value = user.major || '';
+                document.getElementById('userCompany').value = user.company || '';
+                document.getElementById('userLocation').value = user.location || '';
+                document.getElementById('userIndustry').value = user.industry || '';
+                editingUserId = userId;
+                const modalTitle = document.querySelector('#addUserModal .modal-title');
+                if (modalTitle) modalTitle.textContent = 'Edit Alumni';
+                const btn = document.getElementById('addUserSubmitBtn'); if (btn) btn.textContent = 'Save Changes';
+                const modal = new bootstrap.Modal(document.getElementById('addUserModal'));
+                modal.show();
+            } catch (err) {
+                addLog(`❌ Failed to load user for edit: ${err.message}`);
+                alert('❌ Could not load user for editing: ' + (err.message || 'Unknown'));
+            }
+        }
+
+        async function submitUser() {
+            const firstName = document.getElementById('userFirstName').value.trim();
+            const lastName = document.getElementById('userLastName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const password = document.getElementById('userPassword').value.trim();
+            const isEdit = !!editingUserId;   // FIX FLAG
+
+            // ===== FIX 3: password only required when creating, not editing =====
+            if (!firstName || !lastName || !email || (!isEdit && !password)) {
+                const msg = isEdit
+                    ? '❌ First Name, Last Name, and Email are required!'
+                    : '❌ First Name, Last Name, Email, and Password are required!';
+                showStatus('userStatus', msg, 'error');
+                return;
+            }
+            
+            if (!isEdit && password.length < 8) {
+                showStatus('userStatus', '❌ Password must be at least 8 characters long!', 'error');
+                return;
+            }
+
+            const userData = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                graduationYear: document.getElementById('userGraduationYear').value ? parseInt(document.getElementById('userGraduationYear').value) : null,
+                degree: document.getElementById('userDegree').value.trim() || null,
+                major: document.getElementById('userMajor').value.trim() || null,
+                company: document.getElementById('userCompany').value.trim() || null,
+                location: document.getElementById('userLocation').value.trim() || null,
+                industry: document.getElementById('userIndustry').value.trim() || null
+            };
+
+            const submitBtn = document.getElementById('addUserSubmitBtn');
+            try {
+                showStatus('userStatus', '📝 Submitting alumni...', 'loading');
+                submitBtn.disabled = true;
+                addLog('📝 User data prepared:', JSON.stringify(userData));
+
+                let response;
+                if (isEdit) {
+                    // Update payload without password
+                    const updateData = {
+                        firstName,
+                        lastName,
+                        email,
+                        graduationYear: userData.graduationYear,
+                        degree: userData.degree,
+                        major: userData.major,
+                        company: userData.company,
+                        location: userData.location,
+                        industry: userData.industry
+                    };
+                    addLog(`✏️ Updating user ${editingUserId}...`);
+                    response = await AlumniApp.apiFetch(`/users/${editingUserId}`, {
+                        method: 'PATCH',
+                        body: JSON.stringify(updateData)
+                    });
+                    addLog('✅ User updated:', JSON.stringify(response));
+                    showStatus('userStatus', '✅ Alumni updated successfully!', 'success');
+                    editingUserId = null;
+                    const modalTitle = document.querySelector('#addUserModal .modal-title'); if (modalTitle) modalTitle.textContent = 'Add New Alumni';
+                    const btn = document.getElementById('addUserSubmitBtn'); if (btn) btn.textContent = 'Add Alumni';
+                } else {
+                    response = await AlumniApp.apiFetch('/auth/register', {
+                        method: 'POST',
+                        body: JSON.stringify(userData)
+                    });
+                    addLog('✅ User created successfully:', JSON.stringify(response));
+                    showStatus('userStatus', '✅ Alumni created successfully!', 'success');
+                }
+
+                document.getElementById('addUserForm').reset();
+                bootstrap.Modal.getInstance(document.getElementById('addUserModal')).hide();
+
+                await loadUsers();
+                alert('✅ Alumni saved successfully!\n\nName: ' + firstName + ' ' + lastName);
+            } catch (err) {
+                addLog(`❌ User submission error: ${err.message}`);
+                console.error('❌ Add user error:', err);
+                showStatus('userStatus', '❌ Error: ' + (err.message || 'Unknown error'), 'error');
+                alert('❌ Error adding alumni:\n' + (err.message || 'Unknown error'));
+            } finally {
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function deleteUser(userId) {
+            if (!confirm('⚠️ Are you sure you want to delete this alumni? This action cannot be undone.')) return;
+            try {
+                await AlumniApp.apiFetch(`/users/${userId}`, { method: 'DELETE' });
+                await loadUsers();
+                alert('✅ Alumni deleted successfully!');
+            } catch (err) {
+                console.error('❌ Delete user error:', err);
+                alert('❌ Error deleting alumni:\n' + (err.message || 'Unknown error'));
+            }
+        }
+
+        // ==================== EVENTS MANAGEMENT ====================
+        async function loadEvents() {
+            try {
+                addLog('📥 Loading events...');
+                const data = await AlumniApp.apiFetch('/events?limit=100');
+                addLog(`✅ Events loaded: ${data.total} total, ${data.items ? data.items.length : 0} displayed`);
+                const eventsList = document.getElementById('eventsList');
+                if (!data.items || data.items.length === 0) {
+                    eventsList.innerHTML = '<p class="text-muted">No events found.</p>';
+                    return;
+                }
+                eventsList.innerHTML = data.items.map(event => {
+                    const eventDate = new Date(event.datetime);
+                    return `
+                        <div class="item-card">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="flex-grow-1">
+                                    <h5>${event.title}</h5>
+                                    <p class="mb-1"><strong>Date & Time:</strong> ${eventDate.toLocaleString()}</p>
+                                    <p class="mb-1"><strong>Location:</strong> ${event.location || 'N/A'}</p>
+                                    ${event.description ? `<p class="mb-1"><small>${event.description.substring(0, 100)}${event.description.length > 100 ? '...' : ''}</small></p>` : ''}
+                                    <p class="mb-0"><strong>Attendees:</strong> ${event.attendees ? event.attendees.length : 0}</p>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-warning btn-action" onclick="editEvent('${event._id}')">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="btn btn-sm btn-danger btn-action" onclick="deleteEvent('${event._id}')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                addLog(`❌ Error loading events: ${err.message}`);
+                console.error('❌ Error loading events:', err);
+                document.getElementById('eventsList').innerHTML = `<p class="text-danger"><i class="fas fa-exclamation-circle"></i> Error loading events: ${err.message}</p>`;
+            }
+        }
+
+        async function editEvent(eventId) {
+            try {
+                addLog(`🔎 Fetching event ${eventId} for edit...`);
+                const res = await AlumniApp.apiFetch(`/events/${eventId}`);
+                const event = res.event || res;
+                document.getElementById('eventTitle').value = event.title || '';
+                document.getElementById('eventDescription').value = event.description || '';
+                document.getElementById('eventLocation').value = event.location || '';
+                if (event.datetime) {
+                    const dt = new Date(event.datetime);
+                    const local = new Date(dt.getTime() - dt.getTimezoneOffset()*60000).toISOString().slice(0,16);
+                    document.getElementById('eventDatetime').value = local;
+                } else {
+                    document.getElementById('eventDatetime').value = '';
+                }
+                editingEventId = eventId;
+                const modalTitle = document.querySelector('#addEventModal .modal-title'); if (modalTitle) modalTitle.textContent = 'Edit Event';
+                const btn = document.getElementById('addEventSubmitBtn'); if (btn) btn.textContent = 'Save Changes';
+                const modal = new bootstrap.Modal(document.getElementById('addEventModal'));
+                modal.show();
+            } catch (err) {
+                addLog(`❌ Failed to load event for edit: ${err.message}`);
+                alert('❌ Could not load event for editing: ' + (err.message || 'Unknown'));
+            }
+        }
+
+        async function submitEvent() {
+            const eventTitle = document.getElementById('eventTitle').value.trim();
+            const datetimeValue = document.getElementById('eventDatetime').value;
+            
+            if (!eventTitle) {
+                showStatus('eventStatus', '❌ Event Title is required!', 'error');
+                return;
+            }
+            
+            if (!datetimeValue) {
+                showStatus('eventStatus', '❌ Event Date & Time is required!', 'error');
+                return;
+            }
+
+            const eventData = {
+                title: eventTitle,
+                description: document.getElementById('eventDescription').value.trim() || null,
+                location: document.getElementById('eventLocation').value.trim() || null,
+                datetime: new Date(datetimeValue).toISOString()
+            };
+
+            const submitBtn = document.getElementById('addEventSubmitBtn');
+            try {
+                showStatus('eventStatus', '📝 Submitting event...', 'loading');
+                submitBtn.disabled = true;
+                addLog('📝 Event data prepared:', JSON.stringify(eventData));
+
+                let response;
+                if (editingEventId) {
+                    addLog(`✏️ Updating event ${editingEventId}...`);
+                    response = await AlumniApp.apiFetch(`/events/${editingEventId}`, {
+                        method: 'PATCH',
+                        body: JSON.stringify(eventData)
+                    });
+                    addLog('✅ Event updated:', JSON.stringify(response));
+                    showStatus('eventStatus', '✅ Event updated successfully!', 'success');
+                    editingEventId = null;
+                    const modalTitle = document.querySelector('#addEventModal .modal-title'); if (modalTitle) modalTitle.textContent = 'Create New Event';
+                    const btn = document.getElementById('addEventSubmitBtn'); if (btn) btn.textContent = 'Create Event';
+                } else {
+                    response = await AlumniApp.apiFetch('/events', {
+                        method: 'POST',
+                        body: JSON.stringify(eventData)
+                    });
+                    addLog('✅ Event created successfully:', JSON.stringify(response));
+                    showStatus('eventStatus', '✅ Event created successfully!', 'success');
+                }
+
+                document.getElementById('addEventForm').reset();
+                bootstrap.Modal.getInstance(document.getElementById('addEventModal')).hide();
+
+                await loadEvents();
+                alert('✅ Event saved successfully!\n\nTitle: ' + eventTitle);
+            } catch (err) {
+                addLog(`❌ Event submission error: ${err.message}`);
+                console.error('❌ Create event error:', err);
+                showStatus('eventStatus', '❌ Error: ' + (err.message || 'Unknown error'), 'error');
+                alert('❌ Error creating event:\n' + (err.message || 'Unknown error'));
+            } finally {
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function deleteEvent(eventId) {
+            if (!confirm('⚠️ Are you sure you want to delete this event? This action cannot be undone.')) return;
+            try {
+                await AlumniApp.apiFetch(`/events/${eventId}`, { method: 'DELETE' });
+                await loadEvents();
+                alert('✅ Event deleted successfully!');
+            } catch (err) {
+                console.error('❌ Delete event error:', err);
+                alert('❌ Error deleting event:\n' + (err.message || 'Unknown error'));
+            }
+        }
+
+        // Initialize on page load
+        checkAuth();
+
+        // Expose functions to global scope for inline onclick handlers
+        window.loadJobs = loadJobs;
+        window.submitJob = submitJob;
+        window.editJob = editJob;
+        window.deleteJob = deleteJob;
+        window.loadUsers = loadUsers;
+        window.submitUser = submitUser;
+        window.editUser = editUser;
+        window.deleteUser = deleteUser;
+        window.loadEvents = loadEvents;
+        window.submitEvent = submitEvent;
+        window.editEvent = editEvent;
+        window.deleteEvent = deleteEvent;
+    </script>
+</body>
+</html>

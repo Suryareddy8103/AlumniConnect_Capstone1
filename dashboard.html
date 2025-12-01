@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AlumniConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>AlumniConnect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs.html">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="success-stories.html">Success Stories</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="dashboard.html" class="btn btn-outline-primary me-2"><i class="fas fa-user me-1"></i> Dashboard</a>
+                    <a href="admin.html" id="adminPanelBtn" class="btn btn-outline-danger me-2 hidden"><i class="fas fa-user-shield me-1"></i> Admin Panel</a>
+                    <a href="#" id="logoutBtn" class="btn btn-outline-secondary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Page -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                <div class="card p-4 mb-4">
+                    <div class="text-center mb-4">
+                        <img id="avatar" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjUwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSIjOUI5QjlCIi8+CjxwYXRoIGQ9Ik0yMCA4MEMyMCA2NS42NDA2IDMyLjY0MDYgNTMgNDcgNTNINjNDNzcuMzU5NCA1MyA5MCA2NS42NDA2IDkwIDgwVjEwMEgyMFY4MFoiIGZpbGw9IiM5QjlCOUIiLz4KPC9zdmc+" alt="Profile" class="profile-avatar">
+                        <h4 id="fullName" class="mt-3 mb-0">User</h4>
+                        <p id="gradYear" class="text-muted"></p>
+                        <p id="degreeMajor" class="text-muted"></p>
+                    </div>
+                    <div class="d-grid">
+                        <button id="editProfileBtn" class="btn btn-outline-primary mb-2">Edit Profile</button>
+                        <button id="changePasswordBtn" class="btn btn-outline-secondary">Change Password</button>
+                    </div>
+                    <hr>
+                    <div class="nav flex-column">
+                        <a href="#" class="nav-link active p-2 mb-1"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+                        <a href="#" id="goProfile" class="nav-link p-2 mb-1"><i class="fas fa-user me-2"></i> Profile</a>
+                        <a href="events.html" class="nav-link p-2 mb-1"><i class="fas fa-calendar me-2"></i> Events</a>
+                        <a href="jobs.html" class="nav-link p-2 mb-1"><i class="fas fa-briefcase me-2"></i> Jobs</a>
+                        <a href="directory.html" class="nav-link p-2 mb-1"><i class="fas fa-network-wired me-2"></i> Networking</a>
+                        <a href="success-stories.html" class="nav-link p-2 mb-1"><i class="fas fa-star me-2"></i> Success Stories</a>
+                        <a href="admin.html" id="sidebarAdminBtn" class="nav-link p-2 mb-1 text-danger hidden"><i class="fas fa-user-shield me-2"></i> Admin Panel</a>
+                        <a href="#" class="nav-link p-2 mb-1"><i class="fas fa-cog me-2"></i> Settings</a>
+                        <a href="#" id="sidebarLogout" class="nav-link p-2 mb-1 text-danger"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Dashboard</h2>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary"><i class="fas fa-bell"></i></button>
+                        <button class="btn btn-outline-primary"><i class="fas fa-envelope"></i></button>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6 col-lg-3 mb-3">
+                        <div class="card dashboard-card p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary p-3 rounded me-3">
+                                    <i class="fas fa-calendar-check text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <h4 id="statEvents" class="mb-0">-</h4>
+                                    <p class="text-muted mb-0">Events</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-3">
+                        <div class="card dashboard-card p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-success p-3 rounded me-3">
+                                    <i class="fas fa-briefcase text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <h4 id="statJobs" class="mb-0">-</h4>
+                                    <p class="text-muted mb-0">Jobs</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-3">
+                        <div class="card dashboard-card p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-warning p-3 rounded me-3">
+                                    <i class="fas fa-users text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <h4 id="statConnections" class="mb-0">-</h4>
+                                    <p class="text-muted mb-0">Connections</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-3">
+                        <div class="card dashboard-card p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-info p-3 rounded me-3">
+                                    <i class="fas fa-star text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <h4 id="statStories" class="mb-0">-</h4>
+                                    <p class="text-muted mb-0">Stories</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- EVENTS CARD -->
+                    <div class="col-lg-8 mb-4">
+                        <div class="card p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h2>Events</h2>
+                                <a href="events.html">View all events</a>
+                            </div>
+                            <div id="eventsList"></div>
+                        </div>
+                    </div>
+
+                    <!-- JOBS CARD -->
+                    <div class="col-lg-4 mb-4">
+                        <div class="card p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h4 class="mb-0">Jobs</h4>
+                                <a href="jobs.html">View all jobs</a>
+                            </div>
+                            <div id="jobsList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="profileForm">
+                        <div class="mb-3">
+                            <label class="form-label">First Name</label>
+                            <input id="pfFirst" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Last Name</label>
+                            <input id="pfLast" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Headline</label>
+                            <input id="pfHeadline" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input id="pfLocation" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Company</label>
+                            <input id="pfCompany" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Avatar</label>
+                            <input id="pfAvatar" type="file" class="form-control" accept="image/*" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="saveProfileBtn" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Change Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="passwordForm">
+                        <div class="mb-3">
+                            <label class="form-label">Current Password</label>
+                            <input id="pwCurrent" type="password" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">New Password</label>
+                            <input id="pwNew" type="password" class="form-control" />
+                            <div class="form-text">Minimum 8 characters.</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="savePasswordBtn" class="btn btn-primary">Update Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5>AlumniConnect</h5>
+                    <p>Reconnect. Network. Thrive.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="directory.html" class="text-white text-decoration-none">Directory</a></li>
+                        <li><a href="events.html" class="text-white text-decoration-none">Events</a></li>
+                        <li><a href="jobs.html" class="text-white text-decoration-none">Jobs</a></li>
+                        <li><a href="success-stories.html" class="text-white text-decoration-none">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 University Ave, City, State</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> alumni@university.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 AlumniConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        (async function init(){
+            if (!AlumniApp.requireAuth()) return;
+            const editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
+            const changePasswordModal = new bootstrap.Modal(document.getElementById('changePasswordModal'));
+            document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); AlumniApp.logout(); });
+            document.getElementById('sidebarLogout').addEventListener('click', (e) => { e.preventDefault(); AlumniApp.logout(); });
+            document.getElementById('goProfile').addEventListener('click', (e) => { e.preventDefault(); editProfileModal.show(); });
+            document.getElementById('editProfileBtn').addEventListener('click', () => editProfileModal.show());
+            document.getElementById('changePasswordBtn').addEventListener('click', () => changePasswordModal.show());
+            try {
+                const me = await AlumniApp.apiFetch('/auth/me');
+                const u = me.user;
+                document.getElementById('fullName').textContent = `${u.firstName} ${u.lastName}`;
+                document.getElementById('gradYear').textContent = u.graduationYear ? `Class of ${u.graduationYear}` : '';
+                document.getElementById('degreeMajor').textContent = [u.degree, u.major].filter(Boolean).join(' · ');
+                
+                // Show admin panel button if user is admin
+                if (u.roles && u.roles.includes('admin')) {
+                    document.getElementById('adminPanelBtn').classList.remove('hidden');
+                    document.getElementById('sidebarAdminBtn').classList.remove('hidden');
+                }
+                if (u.avatarUrl) {
+                    // Ensure the avatar URL is properly constructed
+                    const avatarUrl = u.avatarUrl.startsWith('http') ? u.avatarUrl : `${AlumniApp.API_BASE.replace('/api', '')}${u.avatarUrl}`;
+                    console.log('Loading user avatar:', u.avatarUrl, '->', avatarUrl);
+                    
+                    // Create a new image to test if the avatar loads successfully
+                    const img = new Image();
+                    img.onload = function() {
+                        document.getElementById('avatar').src = avatarUrl;
+                    };
+                    img.onerror = function() {
+                        console.log('Failed to load user avatar, keeping placeholder');
+                        // Keep the placeholder image if avatar fails to load
+                    };
+                    img.src = avatarUrl;
+                } else {
+                    console.log('No avatar URL found for user, keeping placeholder');
+                }
+                document.getElementById('pfFirst').value = u.firstName || '';
+                document.getElementById('pfLast').value = u.lastName || '';
+                document.getElementById('pfHeadline').value = u.headline || '';
+                document.getElementById('pfLocation').value = u.location || '';
+                document.getElementById('pfCompany').value = u.company || '';
+
+                const stats = await AlumniApp.apiFetch('/dashboard/stats');
+                // Display server-reported stats first
+                document.getElementById('statEvents').textContent = stats.upcomingEvents;
+                document.getElementById('statJobs').textContent = stats.jobs;
+                document.getElementById('statConnections').textContent = (u.connections ? u.connections.length : '-') ;
+                document.getElementById('statStories').textContent = stats.stories;
+
+                // Double-check counts by querying the listing endpoints (they return `total`) and update UI
+                // This ensures the dashboard counts match the actual data shown in lists
+                (async function reconcileCounts(){
+                    try {
+                        const [evRes, jobRes, storyRes] = await Promise.all([
+                            AlumniApp.apiFetch('/events?upcoming=true&limit=1'),
+                            AlumniApp.apiFetch('/jobs?limit=1'),
+                            AlumniApp.apiFetch('/stories?limit=1')
+                        ]);
+                        if (evRes && typeof evRes.total === 'number') document.getElementById('statEvents').textContent = evRes.total;
+                        if (jobRes && typeof jobRes.total === 'number') document.getElementById('statJobs').textContent = jobRes.total;
+                        if (storyRes && typeof storyRes.total === 'number') document.getElementById('statStories').textContent = storyRes.total;
+                    } catch (e) {
+                        console.warn('Failed to reconcile dashboard counts:', e.message || e);
+                    }
+                })();
+
+                // ✅ Load ALL events (no pagination)
+                try {
+                    const eventsRes = await AlumniApp.apiFetch('/events?limit=1000');
+                    const evItems = eventsRes.items || [];
+                    const eventsList = document.getElementById('eventsList');
+
+                    if (evItems.length === 0) {
+                        eventsList.innerHTML = '<p class="text-muted">No events available.</p>';
+                    } else {
+                        eventsList.innerHTML = evItems.map(ev => `
+                            <div class="event-card card p-3 mb-3">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="mb-1">${ev.title}</h5>
+                                        <p class="text-muted small mb-1">
+                                            <i class="fas fa-map-marker-alt me-2"></i> ${ev.location || 'TBA'}
+                                        </p>
+                                        <small class="text-muted">
+                                            ${ev.datetime ? new Date(ev.datetime).toLocaleString() : ''}
+                                        </small>
+                                    </div>
+                                    <div class="text-end">
+                                        <a class="btn btn-sm btn-outline-primary" href="events.html?id=${ev._id}">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                } catch (err) {
+                    console.error('Failed to load events:', err);
+                    // Show a neutral placeholder instead of an error message
+                    document.getElementById('eventsList').innerHTML = `<p class="text-muted">Upcoming events will be shown here.</p>`;
+                }
+
+                // Jobs section
+                const jobs = await AlumniApp.apiFetch('/jobs?limit=3');
+                const jobsList = document.getElementById('jobsList');
+                // Load user's applications to determine applied state
+                let appliedSet = new Set();
+                try {
+                    const myApps = await AlumniApp.apiFetch('/applications/me');
+                    appliedSet = new Set((myApps.applications || []).map(a => String((a.job && a.job._id) || a.job)));
+                } catch (e) {
+                    console.warn('Failed to load user applications for dashboard:', e.message || e);
+                }
+                jobsList.innerHTML = (jobs.items || []).map(j => `
+                    <div class="job-card card p-3 mb-3" data-job-id="${j._id}">
+                        <h6 class="mb-1">${j.title}</h6>
+                        <p class="text-muted small mb-2">${j.company || ''} ${j.location ? '· ' + j.location : ''}</p>
+                        <div class="d-flex justify-content-between job-action" data-job-id="${j._id}">
+                            ${appliedSet.has(String(j._id)) ? `<button class="btn btn-sm btn-success" disabled>Applied</button>` : `<a class="btn btn-sm btn-outline-success" href="job.html?id=${j._id}">Apply</a>`}
+                            <a class="btn btn-sm btn-link" href="jobs.html">Details</a>
+                        </div>
+                    </div>
+                `).join('') || '<p class="text-muted">No jobs posted yet.</p>';
+
+                // Listen for storage events and custom applied events to update UI optimisticly
+                function markDashboardJobApplied(id){
+                    if (!id) return;
+                    document.querySelectorAll(`.job-action[data-job-id="${id}"]`).forEach(el=>{
+                        el.innerHTML = `<button class="btn btn-sm btn-success" disabled>Applied</button><a class="btn btn-sm btn-link" href="jobs.html">Details</a>`;
+                    });
+                }
+                window.addEventListener('storage', (ev)=>{
+                    if (!ev.key) return;
+                    if (ev.key.startsWith('applied_job_')){
+                        const id = ev.key.replace('applied_job_','');
+                        markDashboardJobApplied(id);
+                    }
+                });
+                window.addEventListener('applied', (ev)=>{ try{ markDashboardJobApplied(ev.detail); }catch(e){} });
+
+                // Save profile
+                document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+                    try {
+                        const body = {
+                            firstName: document.getElementById('pfFirst').value.trim(),
+                            lastName: document.getElementById('pfLast').value.trim(),
+                            headline: document.getElementById('pfHeadline').value.trim(),
+                            location: document.getElementById('pfLocation').value.trim(),
+                            company: document.getElementById('pfCompany').value.trim(),
+                        };
+                        await AlumniApp.apiFetch('/users/me', { method: 'PATCH', body: JSON.stringify(body) });
+                        
+                        const file = document.getElementById('pfAvatar').files[0];
+                        if (file) {
+                            const form = new FormData();
+                            form.append('avatar', file);
+                            const response = await fetch(AlumniApp.API_BASE + '/users/me/avatar', { 
+                                method: 'POST', 
+                                headers: { Authorization: 'Bearer ' + AlumniApp.getToken() }, 
+                                body: form 
+                            });
+                            
+                            if (response.ok) {
+                                const result = await response.json();
+                                console.log('Avatar upload result:', result);
+                                // Update the avatar immediately
+                                if (result.user && result.user.avatarUrl) {
+                                    const avatarUrl = result.user.avatarUrl.startsWith('http') ? result.user.avatarUrl : `${AlumniApp.API_BASE.replace('/api', '')}${result.user.avatarUrl}`;
+                                    
+                                    // Test if the new avatar loads successfully
+                                    const img = new Image();
+                                    img.onload = function() {
+                                        document.getElementById('avatar').src = avatarUrl;
+                                        console.log('Updated avatar to:', avatarUrl);
+                                        // Refresh navigation to show new avatar
+                                        if (typeof AlumniApp !== 'undefined' && AlumniApp.refreshNavigation) {
+                                            AlumniApp.refreshNavigation();
+                                        }
+                                    };
+                                    img.onerror = function() {
+                                        console.log('Failed to load updated avatar, keeping current image');
+                                    };
+                                    img.src = avatarUrl;
+                                }
+                            } else {
+                                console.error('Avatar upload failed:', response.status, response.statusText);
+                            }
+                        }
+                        
+                        // Update the displayed name and other fields immediately
+                        document.getElementById('fullName').textContent = `${body.firstName} ${body.lastName}`;
+                        document.getElementById('pfFirst').value = body.firstName;
+                        document.getElementById('pfLast').value = body.lastName;
+                        document.getElementById('pfHeadline').value = body.headline;
+                        document.getElementById('pfLocation').value = body.location;
+                        document.getElementById('pfCompany').value = body.company;
+                        
+                        // If avatar was uploaded but not updated immediately, refresh user data
+                        if (file) {
+                            setTimeout(async () => {
+                                try {
+                                    const me = await AlumniApp.apiFetch('/auth/me');
+                                    if (me.user && me.user.avatarUrl) {
+                                        const avatarUrl = me.user.avatarUrl.startsWith('http') ? me.user.avatarUrl : `${AlumniApp.API_BASE.replace('/api', '')}${me.user.avatarUrl}`;
+                                        
+                                        // Test if the refreshed avatar loads successfully
+                                        const img = new Image();
+                                        img.onload = function() {
+                                            document.getElementById('avatar').src = avatarUrl;
+                                            console.log('Refreshed avatar from server:', avatarUrl);
+                                            // Refresh navigation to show new avatar
+                                            if (typeof AlumniApp !== 'undefined' && AlumniApp.refreshNavigation) {
+                                                AlumniApp.refreshNavigation();
+                                            }
+                                        };
+                                        img.onerror = function() {
+                                            console.log('Failed to load refreshed avatar, keeping current image');
+                                        };
+                                        img.src = avatarUrl;
+                                    }
+                                } catch (e) {
+                                    console.error('Failed to refresh user data:', e);
+                                }
+                            }, 1000);
+                        }
+                        
+                        alert('Profile updated successfully!');
+                        editProfileModal.hide();
+                    } catch (e) { 
+                        console.error('Profile update error:', e);
+                        alert(e.message || 'Failed to update profile'); 
+                    }
+                });
+
+                // Change password
+                document.getElementById('savePasswordBtn').addEventListener('click', async () => {
+                    const currentPassword = document.getElementById('pwCurrent').value;
+                    const newPassword = document.getElementById('pwNew').value;
+                    if (!newPassword || newPassword.length < 8) { alert('New password must be at least 8 characters'); return; }
+                    try {
+                        await AlumniApp.apiFetch('/users/me/password', { method: 'POST', body: JSON.stringify({ currentPassword, newPassword }) });
+                        alert('Password updated');
+                        changePasswordModal.hide();
+                    } catch (e) { alert(e.message || 'Failed to update password'); }
+                });
+            } catch (err) {
+                console.error('Failed to load dashboard:', err);
+                // Fail gracefully in the UI instead of showing raw errors/alerts
+                const eventsListEl = document.getElementById('eventsList');
+                if (eventsListEl) eventsListEl.innerHTML = `<p class="text-muted">Upcoming events will be shown here.</p>`;
+                const jobsListEl = document.getElementById('jobsList');
+                if (jobsListEl) jobsListEl.innerHTML = `<p class="text-muted">Jobs will be shown here.</p>`;
+            }
+        })();
+    </script>
+</body>
+</html>
